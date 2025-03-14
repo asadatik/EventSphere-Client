@@ -21,7 +21,6 @@ export default function FeedPost({refetch}) {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
-
     // Handler for file selection and upload
     const handleImageChange = async (e) => {
         const files = Array.from(e.target.files);

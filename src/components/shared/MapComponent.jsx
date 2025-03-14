@@ -22,7 +22,7 @@ const MapComponent = ({ city }) => {
         console.error('Error fetching coordinates:', error);
       }
     };
-
+ 
     if (city) {
       fetchCoordinates();
     }
