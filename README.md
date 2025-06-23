@@ -158,5 +158,5 @@ Gift card purchase options and access to current promotions.
 
 ## Contributing
 
-If you'd like to contribute to this project, please fork the repository and use a feature branch. Pull requests are welcome.
+If you'd like to contribute to this project, please fork the repository and use a feature branch. Pull requests are welcome❤️
 
