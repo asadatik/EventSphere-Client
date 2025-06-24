@@ -21,7 +21,7 @@ const ChatHome = () => {
     md:min-w-[900px] md:max-w-[90%]
     px-2 h-[95%] md:h-full  
     rounded-xl shadow-lg
-    bg-gray-400 bg-clip-padding
+    bg-gray-300 bg-clip-padding
     backdrop-filter backdrop-blur-lg 
     bg-opacity-0'>
         <div className={`w-full py-2 md:flex `}>
