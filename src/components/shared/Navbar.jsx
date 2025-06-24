@@ -190,9 +190,9 @@ const Navbar = () => {
 
 
   return (
-    <nav className={` 
+    <nav className={`   
       transition-transform duration-500 ease-in-out 
-      bg-[#1b85db] shadow-lg  fixed top-0 w-full z-50 
+      bg-[#1b85db]        shadow-lg  fixed top-0 w-full z-50 
     `}>
       <div className=" mx-auto py-2  container ">
         <div className="flex justify-between items-center ">
