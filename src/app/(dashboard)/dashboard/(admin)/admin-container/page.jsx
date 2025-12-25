@@ -1,3 +1,5 @@
+
+
 import AdminInfo from "@/components/dashboard/admin/AdminInfo";
 
 export const metadata = {
