@@ -153,7 +153,7 @@ const Organizers = () => {
       
       <a
         href={`mailto:${organizer.contactInfo}`}
-        className="flex items-center bg-[#1b9bdb79] px-2 rounded-xl text-base mb-2"
+        className="flex items-center bg-[#1b9bdb79] text-slate-600 px-2 rounded-xl text-base mb-2"
       >
         <IoIosMailOpen className="  mr-1 rounded  text-lg" />
      

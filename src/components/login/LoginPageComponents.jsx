@@ -1,98 +1,123 @@
 "use client";
 import Link from "next/link";
-import { IoIosCheckmarkCircle } from "react-icons/io";
 import { HiOutlineEye } from "react-icons/hi";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import Logo from "@/components/shared/Logo";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import { TbFidgetSpinner } from "react-icons/tb";
 import toast from "react-hot-toast";
-
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import Logo from "../shared/Logo";
+import Image from "next/image";
 
 const LoginPageComponents = () => {
-    const router = useRouter();
+  const router = useRouter();
 
-    const searchParamsForError = useSearchParams();
-    const error = searchParamsForError.get('error');
+  const searchParamsForError = useSearchParams();
+  const error = searchParamsForError.get("error");
 
-    useEffect(() => {
-        if (error === 'access_denied') {
-            toast.error('You cannot access this route 😒');
-        }
-    }, [error]);
-
-
-    const successfullySignIn = (callBackUrl) => {
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Successfully SignIn",
-            showConfirmButton: false,
-            timer: 1500
-        }).then(()=> router.push(callBackUrl || "/"))
+  useEffect(() => {
+    if (error === "access_denied") {
+      toast.error("You cannot access this route 😒");
     }
-    const errorSignIn = () => {
-        Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "SignIn Error",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    }
+  }, [error]);
 
-    const [viewPass, setViewPass] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
+  const successfullySignIn = (callBackUrl) => {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Successfully SignIn",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => router.push(callBackUrl || "/"));
+  };
+  const errorSignIn = () => {
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "SignIn Error",
+      showConfirmButton: false,
+      timer: 1500,
     });
+  };
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [viewPass, setViewPass] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // DEMO CREDENTIAL BUTTON LOGIC
+  const fillDemoUser = () => {
+    setFormData({
+      email: "user1122@gmail.com",     
+      password: "aaaaaa",              
+    });
+  };
+
+  const fillDemoAdmin = () => {
+    setFormData({
+      email: "admin@gmail.com",  
+         password: "aaaaaa",        
+    });
+  };
+
+  const filDemoOrganizer = () => {
+      setFormData({
+        email: "organizer@gmail.com",
+        password: "aaaaaa",
+      });
     };
 
-    // navigate kore onno page conditinaly jaoer jonno
-    const path = searchParamsForError.get("redirect");
-    console.log("search params is a ", searchParamsForError, "path is a ", path)
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
+  //  DEMO CREDENTIAL BUTTON LOGIC 
 
-        setLoading(true)
-        // nextJs dia login korar way: 
-        const resp = await signIn('credentials', {
-            email, password,
-            redirect: false,
-            callbackUrl: path ? path : "/"
-        });
-        console.log("responce is", resp)
-        setLoading(false)
-        // thik vabe login hole home page a pathia dibo.
-        if (resp?.ok) {
-            successfullySignIn(resp?.url)
-            e.target.reset()
-            
-        }
-        else {
-            errorSignIn()
-            console.log("Sign In Error ", resp?.error)
-        }
-    };
+  // Handle form submission
+  const path = searchParamsForError.get("redirect");
+  console.log("search params is a ", searchParamsForError, "path is a ", path);
 
-    return (
-        <div className="">
-            <div
-                style={{ backgroundImage: `url('https://i.postimg.cc/j5F0kNnY/loginBG.jpg')` }}
-                className="bg-cover bg-center pb-16"
-            >
-                <div className="container mx-auto flex flex-col md:flex-row text-white">
-                    <div className="w-full md:w-1/2 my-5 md:mt-14 p-3">
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    setLoading(true);
+    const resp = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+      callbackUrl: path ? path : "/",
+    });
+    console.log("responce is", resp);
+    setLoading(false);
+
+    if (resp?.ok) {
+      successfullySignIn(resp?.url);
+      e.target.reset();
+      setFormData({ email: "", password: "" });
+    } else {
+      errorSignIn();
+      console.log("Sign In Error ", resp?.error);
+    }
+  };
+
+  return (
+    <div className="">
+      <div
+        style={{
+          backgroundImage: `url('https://i.postimg.cc/j5F0kNnY/loginBG.jpg')`,
+        }}
+        className="bg-cover bg-center pb-16"
+      >
+        <div className="container mx-auto flex flex-col md:flex-row text-white">
+          {/* left side ... */}
+ <div className="w-full md:w-1/2 my-5 md:mt-14 p-3">
                         <div className="max-w-[550px] mb-44">
                             <h1 className="pb-[30px] mb-[30px] font-bold text-3xl md:border-b text-center md:text-start md:ml-0">
                                 <Logo></Logo>
@@ -145,6 +170,7 @@ const LoginPageComponents = () => {
                             <div className="grid grid-cols-4 gap-x-10 gap-10 w-4/5 items-center justify-center">
                                 {/* brand logos */}
 
+
                                 {/* img3 */}
                                 <div>
                                     <Image
@@ -156,6 +182,7 @@ const LoginPageComponents = () => {
                                     />
                                 </div>
 
+
                                 {/* img5 */}
                                 <div>
                                     <Image
@@ -166,6 +193,7 @@ const LoginPageComponents = () => {
                                         className="w-10/12 p-1"
                                     />
                                 </div>
+
 
                                 {/* img7 */}
                                 <div>
@@ -190,97 +218,128 @@ const LoginPageComponents = () => {
                             </div>
                         </div>
                     </div>
-                    {/* Right side content */}
-                    <div className="max-w-[599px] md:w-1/2 md:mr-5 md:mx-auto max-h-[650px] bg-white text-black p-10 shadow-lg flex flex-col justify-center -mt-[220px] mx-5 md:mt-[50px] rounded-xl">
-                        <h1 className="text-2xl md:text-[27px] font-bold mb-11 text-center">
-                            Log in to your account
-                        </h1>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            {/* Email */}
-                            <div>
-                                <label className="block text-[15px] font-medium mb-1">
-                                    Email address
-                                </label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="Email address"
-                                    required
-                                    className="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-green-100"
-                                />
-                            </div>
+          {/* Right side content */}
+          <div className="max-w-[599px] md:w-1/2 md:mr-5 md:mx-auto md:max-h-[650px] bg-white text-black p-10 shadow-lg flex flex-col justify-center -mt-[220px] mx-5 md:mt-[50px] rounded-xl">
+            <h1 className="text-2xl md:text-[27px] font-bold mb-6 text-center">
+              Log in to your account
+            </h1>
 
-                            {/* Password */}
-                            <div className="relative">
-                                <label className="block text-[15px] font-medium mb-1">
-                                    Password
-                                </label>
-                                <input
-                                    type={`${!viewPass ? "password" : "text"}`}
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    placeholder="Password"
-                                    required
-                                    className="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-green-100"
-                                />
-                                <span
-                                    onClick={() => {
-                                        setViewPass(!viewPass);
-                                    }}
-                                    className={`${!viewPass
-                                        ? "absolute right-4 top-10"
-                                        : "absolute right-4 top-10 text-gray-400"
-                                        }`}
-                                >
-                                    <HiOutlineEye className="text-2xl" />
-                                </span>
-                            </div>
+            {/* DEMO BUTTON UI */}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-5">
+              <button
+                type="button"
+                onClick={fillDemoUser}
+                className="px-4 py-2 text-sm font-semibold rounded-md border border-blue-500 text-blue-600 hover:bg-blue-50"
+              >
+                Demo User
+              </button>
+              <button
+                type="button"
+                onClick={fillDemoAdmin}
+                className="px-4 py-2 text-sm font-semibold rounded-md border border-amber-500 text-amber-600 hover:bg-amber-50"
+              >
+                Demo Admin
+              </button>
+                <button
+                type="button"
+                onClick={filDemoOrganizer}
+                className="px-4 py-2 text-sm font-semibold rounded-md border border-green-500 text-green-600 hover:bg-green-50"
+                >
+                Demo Organizer
+              </button>
+          
 
-                            {/* Log in Button */}
-                            <button
-                                type="submit"
-                                className="bg-[#1b85db] text-white rounded-md p-3 w-full font-bold hover:bg-[#1b85db]"
-                            >
-                                {
-                                    loading ? <p className="flex flex-col justify-center items-center"><TbFidgetSpinner size={22} className="text-white animate-spin "></TbFidgetSpinner></p> : "Login"
-                                }
-
-                            </button>
-                        </form>
-
-
-                        {/* Sign up with Google, Facebook, Apple */}
-                        {/* <SocialSignIn></SocialSignIn> */}
-
-                        {/* Sign up Link */}
-                        <p className="text-center mt-4">
-                            Dont have an account?
-                            <Link href="register" className="text-[#1b85db] font-bold hover:underline">
-                                Sign Up
-                            </Link>
-                        </p>
-
-                        {/* Terms & Privacy */}
-                        <p className="text-center text-xs text-gray-500 mt-2">
-                            By clicking Log In, you agree to EventBookings{" "}
-                            <Link href="#" className="text-[#1b85db] underline">
-                                Terms & Conditions
-                            </Link>{" "}
-                            and have read the{" "}
-                            <Link href="#" className="text-[#1b85db] underline">
-                                Privacy Policy
-                            </Link>
-
-                        </p>
-                    </div>
-                </div>
             </div>
+            {/*  DEMO BUTTON UI  */}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Email */}
+              <div>
+                <label className="block text-[15px] font-medium mb-1">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email address"
+                  required
+                  className="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-green-100"
+                />
+              </div>
+
+              {/* Password */}
+              <div className="relative">
+                <label className="block text-[15px] font-medium mb-1">
+                  Password
+                </label>
+                <input
+                  type={!viewPass ? "password" : "text"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Password"
+                  required
+                  className="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-green-100"
+                />
+                <span
+                  onClick={() => {
+                    setViewPass(!viewPass);
+                  }}
+                  className={`absolute right-4 top-10 ${
+                    viewPass ? "text-gray-400" : ""
+                  }`}
+                >
+                  <HiOutlineEye className="text-2xl" />
+                </span>
+              </div>
+
+              {/* Log in Button */}
+              <button
+                type="submit"
+                className="bg-[#1b85db] text-white rounded-md p-3 w-full font-bold hover:bg-[#1b85db]"
+              >
+                {loading ? (
+                  <p className="flex flex-col justify-center items-center">
+                    <TbFidgetSpinner
+                      size={22}
+                      className="text-white animate-spin "
+                    />
+                  </p>
+                ) : (
+                  "Login"
+                )}
+              </button>
+            </form>
+
+          
+            <p className="text-center mt-4">
+              Dont have an account?
+              <Link
+                href="register"
+                className="text-[#1b85db] font-bold hover:underline ml-1"
+              >
+                Sign Up
+              </Link>
+            </p>
+
+            <p className="text-center text-xs text-gray-500 mt-2">
+              By clicking Log In, you agree to EventBookings{" "}
+              <Link href="#" className="text-[#1b85db] underline">
+                Terms &amp; Conditions
+              </Link>{" "}
+              and have read the{" "}
+              <Link href="#" className="text-[#1b85db] underline">
+                Privacy Policy
+              </Link>
+            </p>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default LoginPageComponents;
