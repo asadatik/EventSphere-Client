@@ -8,7 +8,7 @@ import Loading from '../shared/LoadingSpiner/Loading';
 
 export default function FeedPostCard() {
     const fetchPosts = async ({ pageParam = 1 }) => {
-        const res = await axios.get(`https://event-sphare-server.vercel.app/getAllPost?page=${pageParam}`);
+        const res = await axios.get(`https://event-sphare-server-one.vercel.app/getAllPost?page=${pageParam}`);
         return res.data; // Adjust based on API response structure
     };
 

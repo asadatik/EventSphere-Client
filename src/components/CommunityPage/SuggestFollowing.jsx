@@ -34,7 +34,7 @@ const SuggestFollowing = ({ userData, refetch }) => {
         }
         console.log(followerEmail)
         try {
-            const response = await fetch(`https://event-sphare-server.vercel.app/user/handleAddFollower/${id}`, {
+            const response = await fetch(`https://event-sphare-server-one.vercel.app/user/handleAddFollower/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

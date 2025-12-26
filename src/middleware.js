@@ -21,7 +21,7 @@ export const middleware = async (request) => {
 
     const  {value: myEmail}  = cookies(request).get("myEmail")
 
-    const {data} = await axios.get(`https://event-sphare-server.vercel.app/user/${myEmail}`)
+    const {data} = await axios.get(`https://event-sphare-server-one.vercel.app/user/${myEmail}`)
     console.log("current user role is ", data?.role);
  
     if((pathname === '/dashboard/be-organizer' || pathname === '/dashboard/my-orderlist') &&  data?.role !== "user" ){

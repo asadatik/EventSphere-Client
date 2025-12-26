@@ -1,8 +1,8 @@
 import { connectDB } from "@/lib/connectDB";
 import { sendEmail } from "@/lib/sendMail";
 import bcrypt from "bcrypt";
-const viewEventsUrl = `https://event-sphare-server.vercel.app/events`;
-const loginUrl = `https://event-sphare-server.vercel.app/login`;
+const viewEventsUrl = `https://event-sphare-server-one.vercel.app/events`;
+const loginUrl = `https://event-sphare-server-one.vercel.app/login`;
 export const POST = async (request) => {
   try {
     const newUser = await request.json();

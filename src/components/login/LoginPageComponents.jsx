@@ -255,7 +255,7 @@ const LoginPageComponents = () => {
 
 
                         {/* Sign up with Google, Facebook, Apple */}
-                        <SocialSignIn></SocialSignIn>
+                        {/* <SocialSignIn></SocialSignIn> */}
 
                         {/* Sign up Link */}
                         <p className="text-center mt-4">

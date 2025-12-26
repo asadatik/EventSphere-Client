@@ -20,7 +20,7 @@ const OrganizerContainer = () => {
   const { data} = useQuery({
       queryKey: ["users"],
       queryFn: () =>
-        fetch(`https://event-sphare-server.vercel.app/user/${session?.data?.user?.email}`).then((res) =>
+        fetch(`https://event-sphare-server-one.vercel.app/user/${session?.data?.user?.email}`).then((res) =>
           res.json()
         ),
     });
@@ -28,21 +28,21 @@ const OrganizerContainer = () => {
   const { data: organizerOrders} = useQuery({
     queryKey: ["organizer-orders"],
     queryFn: () =>
-      fetch(`https://event-sphare-server.vercel.app/organizer-orders/${session?.data?.user?.email}`).then((res) =>
+      fetch(`https://event-sphare-server-one.vercel.app/organizer-orders/${session?.data?.user?.email}`).then((res) =>
         res.json()
       ),
   });
   const { data: organizerStats } = useQuery({
     queryKey: ["organizer-stats"],
     queryFn: () =>
-      fetch(`https://event-sphare-server.vercel.app/organizer-stats/${session?.data?.user?.email}`).then((res) =>
+      fetch(`https://event-sphare-server-one.vercel.app/organizer-stats/${session?.data?.user?.email}`).then((res) =>
         res.json()
       ),
   });
   const { data: PieChartData } = useQuery({
     queryKey: ["organizer-pieChart"],
     queryFn: () =>
-      fetch(`https://event-sphare-server.vercel.app/organizer-pieChart/${session?.data?.user?.email}`).then((res) =>
+      fetch(`https://event-sphare-server-one.vercel.app/organizer-pieChart/${session?.data?.user?.email}`).then((res) =>
         res.json()
       ),
   });

@@ -8,7 +8,7 @@ const useMyAllEvents = () => {
         queryKey: ["myEvents", session?.data?.user?.email],
         queryFn: () =>
             session?.data?.user?.email ? 
-            fetch(`https://event-sphare-server.vercel.app/events/getMyEvent/${session?.data?.user?.email}`).then((res) =>
+            fetch(`https://event-sphare-server-one.vercel.app/events/getMyEvent/${session?.data?.user?.email}`).then((res) =>
                 res.json()
             ) : Promise.resolve(null),
             enabled: !!session?.data?.user?.email, // Runs only if email is available

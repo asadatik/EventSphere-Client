@@ -6,7 +6,7 @@ import { FaHeart } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import { formatDistanceToNow } from "date-fns";
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react"; 
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
@@ -50,12 +50,17 @@ useEffect(() => {
     updateFavorites();
   }, []);
 
-  const handleSignOut = async () => {
-    await signOut();
-    toast.success("Sign Out Successfully");
-    document.cookie = `myEmail=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
-    router.push("/login");
-  };
+const handleSignOut = async () => {
+    try {
+      await signOut({ redirect: false }); // ✅ next-auth signOut
+      toast.success("Sign Out Successfully");
+      document.cookie =
+        "myEmail=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+      router.push("/login");
+    } catch (err) {
+      toast.error("Failed to sign out");
+    }
+  }
 
   // notifications from backend
   const { data: notificationsAll = {} } = useQuery({

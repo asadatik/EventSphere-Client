@@ -53,7 +53,7 @@ const OrganizerProfile = () => {
     queryKey: ["user"],
     queryFn: () =>
       fetch(
-        `https://event-sphare-server.vercel.app/user/${lastPathSegment}`
+        `https://event-sphare-server-one.vercel.app/user/${lastPathSegment}`
       ).then((res) => res.json()),
   });
 
@@ -79,7 +79,7 @@ const OrganizerProfile = () => {
 
     try {
       const result = await axios.put(
-        "https://event-sphare-server.vercel.app/userAddedFollower",
+        "https://event-sphare-server-one.vercel.app/userAddedFollower",
         addedFollower
       );
       console.log(result);

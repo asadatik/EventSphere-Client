@@ -12,7 +12,7 @@ import Loading from "../shared/LoadingSpiner/Loading";
 import Link from "next/link";
 // Function to fetch user data
 const fetchUserData = async () => {
-  const response = await axios.get('https://event-sphare-server.vercel.app/user');
+  const response = await axios.get('https://event-sphare-server-one.vercel.app/user');
   return response.data;
 };
 
