@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import Logo from "@/components/shared/Logo";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import SocialSignIn from "@/components/shared/SocialSignIn";
 import Swal from 'sweetalert2'
 import { TbFidgetSpinner } from "react-icons/tb";
 import toast from "react-hot-toast";
