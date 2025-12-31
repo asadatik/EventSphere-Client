@@ -339,7 +339,7 @@
 
 const fetchEventsData = async () => {
   try {
-    const response = await axios.get(`https://event-sphare-server-one.vercel.app/events`);
+    const response = await axios.get(`https://eventsphare-server-psun.onrender.com/events`);
     return response.data;
   } catch (error) {
     console.error('Error fetching events:', error);

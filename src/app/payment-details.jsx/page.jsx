@@ -18,7 +18,7 @@ const PaymentDetailsPage = () => {
 
     const fetchPaymentData = async () => {
       try {
-        const response = await axios.get(`https://event-sphare-server-one.vercel.app/orders/${transitionId}`);
+        const response = await axios.get(`https://eventsphare-server-psun.onrender.com/orders/${transitionId}`);
         setPaymentData(response.data);
         setLoading(false);
       } catch (error) {

@@ -17,7 +17,7 @@ const UserProfile = () => {
     const { data, isLoading, refetch } = useQuery({
         queryKey: ["user", lastPathSegment],
         queryFn: () =>
-            fetch(`https://event-sphare-server-one.vercel.app/user/${lastPathSegment}`).then((res) =>
+            fetch(`https://eventsphare-server-psun.onrender.com/user/${lastPathSegment}`).then((res) =>
                 res.json()
             ),
     });

@@ -39,7 +39,7 @@ const EventDetail = ({ id }) => {
 
         const fetchEventsData = async () => {
             try {
-                const response = await axios.get(`https://event-sphare-server-one.vercel.app/events/${id}`)
+                const response = await axios.get(`https://eventsphare-server-psun.onrender.com/events/${id}`)
                 // console.log(response)
                 setEvent(response.data)
                 setLoading(false)

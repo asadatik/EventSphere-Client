@@ -7,7 +7,7 @@ import axios from 'axios';
 import Loading from '@/components/shared/LoadingSpiner/Loading';
 
 const fetchUsers = async () => {
-    const response = await axios.get('https://event-sphare-server-one.vercel.app/organizerRequest');
+    const response = await axios.get('https://eventsphare-server-psun.onrender.com/organizerRequest');
     return response.data;
 };
 

@@ -6,7 +6,7 @@ const NewChart = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('https://event-sphare-server-one.vercel.app/monthlyMetrics')
+    fetch('https://eventsphare-server-psun.onrender.com/monthlyMetrics')
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error('Error fetching data:', error));

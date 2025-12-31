@@ -7,7 +7,7 @@ const useGetMessages = () => {
 
     const { data, isLoading, error, refetch } = useQuery({
         queryKey: ["myMessage", session?.data?.user?.email],
-        queryFn: () =>  fetch(`https://event-sphare-server-one.vercel.app/user/get-message?senderId=${auth?.data?._id}&reciverId=${selectedUser?._id}`)
+        queryFn: () =>  fetch(`https://eventsphare-server-psun.onrender.com/user/get-message?senderId=${auth?.data?._id}&reciverId=${selectedUser?._id}`)
                     .then(res => {
                        console.log("conversation is ", res)
                     })

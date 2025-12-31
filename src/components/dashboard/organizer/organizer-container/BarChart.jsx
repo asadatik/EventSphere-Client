@@ -71,7 +71,7 @@ export default BarChart2;
 // // Function to fetch statistics data
 // const fetchStatsData = async (email) => {
 //     const response = await fetch(
-//         `https://event-sphare-server-one.vercel.app/organizer-barChart/${email}`
+//         `https://eventsphare-server-psun.onrender.com/organizer-barChart/${email}`
 //     );
 //     if (!response.ok) {
 //         throw new Error("Network response was not ok");

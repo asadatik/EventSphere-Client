@@ -8,7 +8,7 @@ const useMyAllPost = () => {
         queryKey: ["myPosts", session?.data?.user?.email],
         queryFn: () =>
             session?.data?.user?.email ?
-            fetch(`https://event-sphare-server-one.vercel.app/getUserPosts/${session?.data?.user?.email}`).then((res) =>
+            fetch(`https://eventsphare-server-psun.onrender.com/getUserPosts/${session?.data?.user?.email}`).then((res) =>
                 res.json()
             ) : Promise.resolve(null),
             enabled: !!session?.data?.user?.email, // Runs only if email is available

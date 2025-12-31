@@ -3,7 +3,7 @@ import axios from "axios"
 
 
 export const generateMetadata = async ({ params }) => {
-    const res = await axios.get(`https://event-sphare-server-one.vercel.app/events/${params.id}`)
+    const res = await axios.get(`https://eventsphare-server-psun.onrender.com/events/${params.id}`)
     const event=res.data
     return {
         title: `${event.title}`,

@@ -19,7 +19,7 @@ import Loading from "@/components/shared/LoadingSpiner/Loading";
 // Function to fetch statistics data
 const fetchStatsData = async (email) => {
     const response = await fetch(
-        `https://event-sphare-server-one.vercel.app/organizer-waveChart/${email}`
+        `https://eventsphare-server-psun.onrender.com/organizer-waveChart/${email}`
     );
     if (!response.ok) {
         throw new Error("Network response was not ok");

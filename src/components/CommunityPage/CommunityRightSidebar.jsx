@@ -9,7 +9,7 @@ import Loading from '../shared/LoadingSpiner/Loading';
 
 // Function to fetch user data
 const fetchUserData = async () => {
-    const response = await axios.get('https://event-sphare-server-one.vercel.app/user');
+    const response = await axios.get('https://eventsphare-server-psun.onrender.com/user');
     return response.data;
 };
 

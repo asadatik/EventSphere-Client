@@ -1,49 +1,106 @@
-import { matchQuery } from "@tanstack/react-query";
+// middleware.js
+
 import axios from "axios";
-import { cookies } from "next/headers"
-import { NextResponse } from "next/server"
-import toast, { Toaster } from 'react-hot-toast';
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export const middleware = async (request) => {
+  const cookieStore = cookies();
+  const pathname = request.nextUrl.pathname;
+  console.log("path name is ", pathname);
 
-    // const token = cookies(request).get("__Secure-next-auth.session-token")   // vercel a deploy korar somoi ai line comentout kore dibo.
-    const token = cookies(request).get("next-auth.session-token")
-
-    const pathname = request.nextUrl.pathname;
-    console.log("path name is ", pathname)
-
-    if (pathname.includes('api')) {   // aikhane dsashboard er pore all jekono route private ase. But jodi need hoi,, dashboard er moddhe kono route k private korbona, tahole upore condition dia return korte pari,, tahole middleware kajj korbena. aikhane api er poriborte oi route name hobe.
-        return NextResponse.next()
-    }
-    if (!token) {
-        return NextResponse.redirect(new URL(`/login?redirect=${pathname}`, request.url));
-    }
-
-    const  {value: myEmail}  = cookies(request).get("myEmail")
-
-    const {data} = await axios.get(`https://event-sphare-server-one.vercel.app/user/${myEmail}`)
-    console.log("current user role is ", data?.role);
- 
-    if((pathname === '/dashboard/be-organizer' || pathname === '/dashboard/my-orderlist') &&  data?.role !== "user" ){
-       
-        return NextResponse.redirect(new URL(`/login?redirect=${pathname}&error=access_denied`, request.url));
-    }
-
-    if((pathname === '/dashboard/booked-event' || pathname === '/dashboard/eventPost' || pathname === '/dashboard/organizer-container' || pathname === '/dashboard/organizer-profit') &&  data?.role !== "organizer" ){
-       
-        return NextResponse.redirect(new URL(`/login?redirect=${pathname}&error=access_denied`, request.url));
-    }
-
-    if((pathname === '/dashboard/admin-container' || pathname === '/dashboard/organizer-request' || pathname === '/dashboard/user-manage') &&  data?.role !== "admin" ){
-       
-        return NextResponse.redirect(new URL(`/login?redirect=${pathname}&error=access_denied`, request.url));
-    }
-
+  // API routes skip
+  if (pathname.includes("api")) {
     return NextResponse.next();
-}
+  }
+
+  // NextAuth cookie: dev + prod 
+  const devToken = cookieStore.get("next-auth.session-token");
+  const prodToken = cookieStore.get("__Secure-next-auth.session-token");
+  const token = devToken || prodToken;
+
+  if (!token) {
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${pathname}`, request.url)
+    );
+  }
+
+  // myEmail cookie safe 
+  const myEmailCookie = cookieStore.get("myEmail");
+  const myEmail = myEmailCookie?.value;
+
+  if (!myEmail) {
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${pathname}`, request.url)
+    );
+  }
+
+  const BACKEND_URL =
+    process.env.NEXT_PUBLIC_SOCKET_SERVER_UR ||
+    "https://eventsphare-server-psun.onrender.com"; 
+
+  let role;
+
+  try {
+    const { data } = await axios.get(`${BACKEND_URL}/user/${myEmail}`);
+    role = data?.role;
+    console.log("current user role is ", role);
+  } catch (e) {
+    console.error("middleware role fetch error:", e?.message);
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${pathname}`, request.url)
+    );
+  }
+
+  // ===== Role-based Guards =====
+
+  // শুধু normal user allowed
+  if (
+    (pathname === "/dashboard/be-organizer" ||
+      pathname === "/dashboard/my-orderlist") &&
+    role !== "user"
+  ) {
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${pathname}&error=access_denied`, request.url)
+    );
+  }
+
+  // শুধু organizer allowed
+  if (
+    pathname === "/dashboard/booked-event" ||
+    pathname === "/dashboard/eventPost" ||
+    pathname === "/dashboard/organizer-container" ||
+    pathname === "/dashboard/organizer-profit"
+  ) {
+    if (role !== "organizer") {
+      return NextResponse.redirect(
+        new URL(
+          `/login?redirect=${pathname}&error=access_denied`,
+          request.url
+        )
+      );
+    }
+  }
+
+  // শুধু admin allowed
+  if (
+    pathname === "/dashboard/admin-container" ||
+    pathname === "/dashboard/organizer-request" ||
+    pathname === "/dashboard/user-manage"
+  ) {
+    if (role !== "admin") {
+      return NextResponse.redirect(
+        new URL(
+          `/login?redirect=${pathname}&error=access_denied`,
+          request.url
+        )
+      );
+    }
+  }
+
+  return NextResponse.next();
+};
 
 export const config = {
-    matcher: ["/dashboard/:path*"]
-    // matcher: []
-}
-
+  matcher: ["/dashboard/:path*"],
+};

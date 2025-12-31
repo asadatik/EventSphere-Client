@@ -33,7 +33,7 @@ const MyFollower = ({ userData, refetch }) => {
             return router.push('/login')
         }
         try {
-          const response = await fetch(`https://event-sphare-server-one.vercel.app/user/handleAddFollower/${id}`, {
+          const response = await fetch(`https://eventsphare-server-psun.onrender.com/user/handleAddFollower/${id}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

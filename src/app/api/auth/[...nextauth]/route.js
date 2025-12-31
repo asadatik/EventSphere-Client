@@ -6,8 +6,8 @@ import FacebookProvider from "next-auth/providers/facebook";
 import { connectDB } from "@/lib/connectDB";
 import { sendEmail } from "@/lib/sendMail";
 
-const viewEventsUrl = `https://event-sphare-server-one.vercel.app/events`;
-const loginUrl = `https://event-sphare-server-one.vercel.app/login`;
+const viewEventsUrl = `https://eventsphare-server-psun.onrender.com/events`;
+const loginUrl = `https://eventsphare-server-psun.onrender.com/login`;
 
 export const authOptions = {
     secret: process.env.NEXT_PUBLIC_AUTH_SECRET,

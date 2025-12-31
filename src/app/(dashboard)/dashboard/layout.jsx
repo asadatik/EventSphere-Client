@@ -12,8 +12,7 @@ import { IoChatbubbleEllipsesOutline, IoSettings } from 'react-icons/io5';
 const DashboardLayout = ({ children }) => {
     const [showSidebar, setShowSidebar] = useState(false);
     const session = useSession()
-  
-  
+
     useEffect(() => {
         if (session?.data?.user?.email) {
           document.cookie = `myEmail=${session?.data?.user?.email}; path=/;`;

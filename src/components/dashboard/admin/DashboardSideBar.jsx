@@ -51,7 +51,7 @@ const DashboardSideBar = () => {
 
     // Get Booking Data 
     const fetchOrders = async () => {
-      const { data } = await axios.get(`https://event-sphare-server-one.vercel.app/ordersByGmail/${currentUserEmail}`);
+      const { data } = await axios.get(`https://eventsphare-server-psun.onrender.com/ordersByGmail/${currentUserEmail}`);
   
       return data;
     };

@@ -12,7 +12,7 @@ import io from "socket.io-client"
 import Swal from 'sweetalert2';
 import useAuth from "@/hooks/useAuth"
 
-const socket = io("https://eventsphare-server.onrender.com", {
+const socket = io("https://eventsphare-server-psun.onrender.com", {
   reconnectionAttempts: 5,
   reconnectionDelay: 1000,
   transports: ['websocket']

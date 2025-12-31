@@ -2,7 +2,7 @@
 import axios from 'axios';
 
  const axiosSecure = axios.create({
-    baseURL: 'https://event-sphare-server-one.vercel.app',
+    baseURL: 'https://eventsphare-server-psun.onrender.com',
     headers: {
         Authorization: `Bearer ${localStorage?.getItem('token')}` 
     }

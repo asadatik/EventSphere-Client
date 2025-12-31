@@ -43,7 +43,7 @@ const EventTime = () => {
   const [seeMore, setSeeMore] = useState(false);
   useEffect(() => {
     axios
-      .get("https://event-sphare-server-one.vercel.app/events")
+      .get("https://eventsphare-server-psun.onrender.com/events")
       .then((res) => {
         if (res?.data?.events?.length > 6) {
           const arr = res.data.slice(0, 6);

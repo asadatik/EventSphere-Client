@@ -26,7 +26,8 @@ const Navbar = () => {
   const { data: session, status } = useSession();
   const auth = useAuth();
 
-
+  console.log("Session data from navbar:", session);
+console.log("Auth data from navbar:", auth);
 // sticky navbar
   const [isSticky, setIsSticky] = useState(false);
 

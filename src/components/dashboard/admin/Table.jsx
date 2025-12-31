@@ -9,7 +9,7 @@ const Table = () => {
   // useEffect to fetch data from APIs once the component mounts or the organizerEmail changes
   useEffect(() => {
     const fetchData = async () => {
-      const eventsResponse = await fetch('https://event-sphare-server-one.vercel.app/events');
+      const eventsResponse = await fetch('https://eventsphare-server-psun.onrender.com/events');
       const eventsData = await eventsResponse.json();
       const events = eventsData.events;
       setEventData(events);
